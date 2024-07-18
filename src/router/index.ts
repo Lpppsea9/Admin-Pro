@@ -8,7 +8,7 @@ import "nprogress/nprogress.css";
 // 		name: "Home",
 // 		component: () => import("@/views/home/index.vue"),
 // 		meta: {},
-// 		children: [],
+// 		children: [],/
 // 	},
 // 	{
 // 		path: "/",
