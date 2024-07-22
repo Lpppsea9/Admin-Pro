@@ -2,6 +2,6 @@
 	<div>homessssss</div>
 </template>
 <script setup lang="ts">
-const a = "sss";
-console.log(a);
+import { useUserStore } from '@/store/user';
+const userStore = useUserStore();
 </script>
