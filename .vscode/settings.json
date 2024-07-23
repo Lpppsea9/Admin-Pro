@@ -1,5 +1,26 @@
 {
-  "eslint.codeActionsOnSave": {
-    "source.fixAll": true
-  }
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": "always",
+  // },
+  // "[less]": {
+  //   "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  // },
+  // "stylelint.validate": [
+  //   "css",
+  //   "less",
+  //   "postcss",
+  //   "scss",
+  //   "sass",
+  //   "vue"
+  // ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+  },
+  // "stylelint.validate": [
+  //   "css",
+  //   "less",
+  //   "vue",
+  //   "html"
+  // ],
 }

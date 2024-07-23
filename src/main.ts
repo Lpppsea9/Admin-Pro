@@ -1,7 +1,10 @@
-import { createApp } from "vue";
-import App from "./views/App.vue";
-import router from "./router";
+import { createApp } from 'vue';
+import App from './views/App.vue';
+import router from './router';
+import pinia from './store';
+import './styles/index.less';
 
 const app = createApp(App);
 app.use(router);
-app.mount("#app");
+app.use(pinia);
+app.mount('#app');

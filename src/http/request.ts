@@ -48,6 +48,7 @@ const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
 	return new Promise((resolve, reject) => {
 		service.request<any, AxiosResponse<BaseResponse>>(conf).then((res: AxiosResponse<BaseResponse>) => {
 			const data = res.data;
+			console.log(data);
 			if (data.code != 0) {
 				ElMessage({
 					message: data.message,

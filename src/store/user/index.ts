@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import { refreshUserInfo, userLogin } from "@/api/user";
-import pinia from "@/store";
+import { defineStore } from 'pinia';
+import { refreshUserInfo, userLogin } from '@/api/user';
+import pinia from '@/store';
 
 export interface UserState {
 	username: string;
@@ -9,26 +9,27 @@ export interface UserState {
 	roles: Array<string>;
 }
 
-export const useUserStoreHook = defineStore("user", {
+export const useUserStoreHook = defineStore('user', {
 	state: (): UserState => {
 		return {
-			username: "sea9",
-			accessToken: "",
-			roles: ["common"],
+			username: 'sea9',
+			accessToken: '',
+			roles: ['common']
 		};
 	},
 	getters: {},
 	actions: {
 		storeUserLogin(data) {
 			return userLogin(data).then((res) => {
-				this.username = res.username;
-				this.accessToken = res.accessToken;
-				this.roles = res.roles;
+				console.log('Res', res);
+				this.username = res.data.username;
+				this.accessToken = res.data.accessToken;
+				this.roles = res.data.roles;
 				return res;
 			});
 		},
 		storeRefreshUserInfo() {
-			if (this.username === "sea9" && this.accessToken != "") {
+			if (this.username === 'sea9' && this.accessToken != '') {
 				refreshUserInfo({ accessToken: this.accessToken })
 					.then((res) => {
 						this.username = res.username;
@@ -36,16 +37,16 @@ export const useUserStoreHook = defineStore("user", {
 						this.roles = res.roles;
 					})
 					.catch(() => {
-						this.accessToken = "";
+						this.accessToken = '';
 					});
 			}
-		},
+		}
 	},
 	persist: {
-		key: "userInfo",
+		key: 'userInfo',
 		storage: sessionStorage,
-		paths: ["accessToken"],
-	},
+		paths: ['accessToken']
+	}
 });
 
 export function useUserStore() {

@@ -4,7 +4,8 @@ module.exports = {
 		'stylelint-config-standard',
 		'stylelint-config-prettier',
 		'stylelint-config-recommended-less',
-		'stylelint-config-standard-vue'
+		// 'stylelint-config-standard-vue',
+		'stylelint-config-recommended-vue'
 	],
 	// 添加规则插件
 	plugins: ['stylelint-order'],
@@ -116,6 +117,8 @@ module.exports = {
 			'text-shadow',
 			'resize',
 			'transition'
-		]
+		],
+		'font-family-no-duplicate-names': null,
+		'no-duplicate-selectors': null
 	}
 };

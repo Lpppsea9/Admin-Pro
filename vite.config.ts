@@ -3,6 +3,7 @@ import type { UserConfig, ConfigEnv } from 'vite';
 import { fileURLToPath } from 'url';
 import { viteMockServe } from 'vite-plugin-mock';
 import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
@@ -37,14 +38,28 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			ElementPlus({}),
 			// 自动引入element-plus组件
 			AutoImport({
-				resolvers: ElementPlusResolver(),
+				resolvers: [
+					ElementPlusResolver(),
+					// 自动导入图标组件
+					IconsResolver({
+						prefix: 'Icon'
+					})
+				],
 				dts: fileURLToPath(new URL('./types/auto-imports.d.ts', import.meta.url))
+				// 自动导入图标组件
 			}),
 			// 自动注册element-plus组件
 			Components({
-				resolvers: ElementPlusResolver(),
+				resolvers: [
+					ElementPlusResolver(),
+					// 自动注册图标组件
+					IconsResolver({
+						enabledCollections: ['ep']
+					})
+				],
 				dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url))
 			}),
+			// 自动安装图标
 			Icons({
 				autoInstall: true
 			})

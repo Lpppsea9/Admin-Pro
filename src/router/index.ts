@@ -1,6 +1,6 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 // const routes: Array<RouteRecordRaw> = [
 // 	{
@@ -27,11 +27,11 @@ import "nprogress/nprogress.css";
 // ];
 
 export const aboutRouter = {
-	path: "/about",
-	name: "about",
-	component: () => import("@/views/about/index.vue"),
+	path: '/about',
+	name: 'about',
+	component: () => import('@/views/about/index.vue'),
 	meta: {},
-	children: [],
+	children: []
 } as RouteRecordRaw;
 
 // 组合路由信息
@@ -39,8 +39,8 @@ export const aboutRouter = {
 // 它可以将模块中全部内容导入并返回一个Record对象
 // 默认为懒加载模式 加入配置项 eager 取消懒加载
 // import a from './modules/*.ts'
-const modules: Record<string, any> = import.meta.glob("./modules/*.ts", {
-	eager: true,
+const modules: Record<string, any> = import.meta.glob('./modules/*.ts', {
+	eager: true
 });
 
 const routes: Array<RouteRecordRaw> = [];
@@ -53,12 +53,19 @@ routes.push(aboutRouter);
 
 const router = createRouter({
 	history: createWebHashHistory(),
-	routes,
+	routes
 });
 
+const noStatusPath = ['/about', '/login'];
 router.beforeEach(async (_to, _form, next) => {
 	NProgress.start();
-	next();
+	const token = sessionStorage.getItem('userInfo');
+	const isUserLogin = token ? true : false;
+	if (isUserLogin || noStatusPath.includes(_to.path)) {
+		next();
+	} else {
+		next('/login');
+	}
 });
 
 router.afterEach((_to) => {
