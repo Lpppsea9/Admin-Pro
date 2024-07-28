@@ -38,6 +38,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			ElementPlus({}),
 			// 自动引入element-plus组件
 			AutoImport({
+				// 处理eslint
+				eslintrc: {
+					enabled: true, // Default `false`
+					filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+					globalsPropValue: true
+				},
 				resolvers: [
 					ElementPlusResolver(),
 					// 自动导入图标组件
@@ -46,7 +52,6 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 					})
 				],
 				dts: fileURLToPath(new URL('./types/auto-imports.d.ts', import.meta.url))
-				// 自动导入图标组件
 			}),
 			// 自动注册element-plus组件
 			Components({

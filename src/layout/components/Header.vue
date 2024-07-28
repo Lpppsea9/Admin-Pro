@@ -2,7 +2,7 @@
 	<div class="header">
 		<div class="flex-center">logo区域</div>
 		<div class="flex-grow"></div>
-		<div class="flex-center m05 color-dark-black"><i-ep-user></i-ep-user>userName</div>
+		<div class="flex-center m05 color-dark-black"><i-ep-user></i-ep-user>{{ userName }}</div>
 		<div class="flex-center m05 color-dark-black" @click="handerSetting">
 			<i-ep-setting class="icon-action"></i-ep-setting>
 		</div>
@@ -21,7 +21,12 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-// import us
+import { useRouter } from 'vue-router';
+import { useUserStoreHook } from '@/store/user';
+
+const router = useRouter();
+const userStore = useUserStoreHook();
+const userName = userStore.username;
 let isShowSetting = ref(false);
 
 function handerSetting() {
@@ -32,7 +37,10 @@ function handerClose() {
 	isShowSetting.value = false;
 }
 
-function handerLogout() {}
+function handerLogout() {
+	sessionStorage.removeItem('userInfo');
+	router.push('/login');
+}
 </script>
 <style lang="less" scoped>
 .header {

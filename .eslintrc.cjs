@@ -10,7 +10,8 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:vue/vue3-recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:prettier/recommended' // 在最后面新增extends, eslint 与 prettier 冲突的校验规则会被 prettier 覆盖掉
+		'plugin:prettier/recommended', // 在最后面新增extends, eslint 与 prettier 冲突的校验规则会被 prettier 覆盖掉
+		'./.eslintrc-auto-import.json'
 	],
 	overrides: [],
 	// 这里一定要配置对 先使用vue-eslint-parser 再使用@typescript-eslint/parser
