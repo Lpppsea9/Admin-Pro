@@ -58,20 +58,35 @@ const router = createRouter({
 
 const getTitle = (name, routes) => {
 	const names: string[] = [];
+	// while (true) {
+	// 	console.log('nnn', name);
+	// 	names.push(name);
+	// 	const currentRouterObj = routes.find((item) => item.name === name);
+	// 	const parentRouterObj = routes.find((item) => item.name === currentRouterObj.meta.parentRouter);
+	// 	console.log('p', parentRouterObj);
+	// 	if (parentRouterObj) {
+	// 		name = parentRouterObj.name;
+	// 		continue;
+	// 	} else {
+	// 		break;
+	// 	}
+	// }
+	// console.log(names);
+
 	while (true) {
-		console.log('nnn', name);
 		names.push(name);
+
 		const currentRouterObj = routes.find((item) => item.name === name);
-		const parentRouterObj = routes.find((item) => item.name === currentRouterObj.meta.parentRouter);
+		const parentRouterObj = routes.find((item) => item.name === currentRouterObj?.meta?.parentRouter);
 		console.log('p', parentRouterObj);
 		if (parentRouterObj) {
-			name = parentRouterObj.name;
+			name = parentRouterObj.name as string;
 			continue;
 		} else {
 			break;
 		}
 	}
-	console.log(names);
+	return names;
 };
 
 const handleRouters = (currentName: string) => {

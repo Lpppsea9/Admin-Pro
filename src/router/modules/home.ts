@@ -4,12 +4,12 @@ export default {
 	component: () => import('@/layout/index.vue'),
 	meta: {
 		roles: ['common', 'admin'],
-		parentRouter: 'Layout'
+		parentRouter: 'Home'
 	},
 	children: [
 		{
 			path: '/',
-			name: 'homePage',
+			name: 'HomePage',
 			component: () => import('@/views/home/index.vue'),
 			meta: {
 				title: '项目介绍',

@@ -8,6 +8,8 @@ import ElementPlus from 'unplugin-element-plus/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+// import { analyzer } from 'vite-bundle-analyzer';
+import { visualizer } from 'rollup-plugin-visualizer';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
@@ -115,6 +117,20 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 				// 也就是项目从哪个文件开始打包
 				input: {
 					index: fileURLToPath(new URL('./index.html', import.meta.url))
+				},
+				plugins: [visualizer({ open: false })],
+				experimentalLogSideEffects: true,
+				treeshake: {
+					preset: 'recommended'
+				},
+				output: {
+					experimentalMinChunkSize: 20 * 1024, //单位B
+					manualChunks: (id: string) => {
+						if (id.includes('node_modules')) {
+							return 'vendor';
+						}
+						// return 'index';
+					}
 				}
 				// 静态资源分类打包
 				// output: {
