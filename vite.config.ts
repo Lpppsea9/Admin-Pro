@@ -115,14 +115,14 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 				// 也就是项目从哪个文件开始打包
 				input: {
 					index: fileURLToPath(new URL('./index.html', import.meta.url))
-				},
-				// 静态资源分类打包
-				output: {
-					format: 'esm',
-					chunkFileNames: 'static/js/[name]-[hash].js',
-					entryFileNames: 'static/js/[name]-[hash].js',
-					assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
 				}
+				// 静态资源分类打包
+				// output: {
+				// 	format: 'esm',
+				// 	chunkFileNames: 'static/js/[name]-[hash].js',
+				// 	entryFileNames: 'static/js/[name]-[hash].js',
+				// 	assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+				// }
 			}
 		},
 		// 配置别名
