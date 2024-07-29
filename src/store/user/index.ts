@@ -32,9 +32,9 @@ export const useUserStoreHook = defineStore('user', {
 			if (this.username === 'sea9' && this.accessToken != '') {
 				refreshUserInfo({ accessToken: this.accessToken })
 					.then((res) => {
-						this.username = res.username;
-						this.accessToken = res.accessToken;
-						this.roles = res.roles;
+						this.username = res.data.username;
+						this.accessToken = res.data.accessToken;
+						this.roles = res.data.roles;
 					})
 					.catch(() => {
 						this.accessToken = '';

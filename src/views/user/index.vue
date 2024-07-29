@@ -67,39 +67,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue';
 import { getUserList } from '@/api/user';
 import { getRoleList } from '@/api/role';
-
-interface IRole {
-	role: number; //角色编号
-	roleName: string; //角色名称
-}
-
-interface IUser {
-	id: number;
-	nickName: string; //姓名
-	userName: string; //用户名
-	role: IRole[];
-}
-
-interface IRoleWithAuth {
-	roleId: number; //角色编号
-	roleName: string; //角色名称
-	auth: []; //权限
-}
-
-interface IQueryUser {
-	nickName: string;
-	role: number;
-}
-
-interface IUserEdit {
-	id: number;
-	nickName: string;
-	role: [];
-	userName: string;
-}
+import { IQueryUser, IUserEdit, IRoleWithAuth, IUser } from '@/types/common';
 
 const searchData = reactive<IQueryUser>({
 	nickName: '',

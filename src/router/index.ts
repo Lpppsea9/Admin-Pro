@@ -56,6 +56,30 @@ const router = createRouter({
 	routes
 });
 
+const getTitle = (name, routes) => {
+	const names: string[] = [];
+	while (true) {
+		console.log('nnn', name);
+		names.push(name);
+		const currentRouterObj = routes.find((item) => item.name === name);
+		const parentRouterObj = routes.find((item) => item.name === currentRouterObj.meta.parentRouter);
+		console.log('p', parentRouterObj);
+		if (parentRouterObj) {
+			name = parentRouterObj.name;
+			continue;
+		} else {
+			break;
+		}
+	}
+	console.log(names);
+};
+
+const handleRouters = (currentName: string) => {
+	// console.log('currentName', currentName);
+	// console.log('route.getRoutes()', router.getRoutes());
+	const titles = getTitle(currentName, router.getRoutes());
+};
+
 const noStatusPath = ['/about', '/login'];
 router.beforeEach(async (_to, _form, next) => {
 	NProgress.start();
@@ -66,6 +90,7 @@ router.beforeEach(async (_to, _form, next) => {
 	} else {
 		next('/login');
 	}
+	handleRouters(_to.name);
 });
 
 router.afterEach((_to) => {

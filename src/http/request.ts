@@ -32,7 +32,16 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 	(response: AxiosResponse) => {
 		if (response.status === 200) {
-			return response;
+			const data = response.data;
+			if (data.code !== 0) {
+				ElMessage({
+					message: data.message,
+					type: 'error'
+				});
+				return Promise.reject(data);
+			} else {
+				return data;
+			}
 		}
 		ElMessage({
 			message: getMessageInfo(response.status),
@@ -40,46 +49,20 @@ service.interceptors.response.use(
 		});
 		return response;
 	},
-	(error: any) => {}
+	(error: any) => {
+		const { response } = error;
+		if (response) {
+			ElMessage({
+				message: getMessageInfo(response.status),
+				type: 'error'
+			});
+			return Promise.reject(response.data);
+		}
+		ElMessage({
+			message: '网络连接异常,请稍后重试!',
+			type: 'error'
+		});
+	}
 );
 
-const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
-	const conf = config;
-	return new Promise((resolve, reject) => {
-		service.request<any, AxiosResponse<BaseResponse>>(conf).then((res: AxiosResponse<BaseResponse>) => {
-			const data = res.data;
-			console.log('requestInstance实例', data);
-			if (data.code != 0) {
-				ElMessage({
-					message: data.message,
-					type: 'error'
-				});
-				reject(data.message);
-			} else {
-				ElMessage({
-					message: data.message,
-					type: 'success'
-				});
-				resolve(data as T);
-			}
-		});
-	});
-};
-
 export default service;
-
-export function get<T = any, U = any>(config: AxiosRequestConfig, url: string, parms?: U): Promise<T> {
-	return requestInstance({ ...config, url, method: 'GET', params: parms });
-}
-
-export function post<T = any, U = any>(config: AxiosRequestConfig, url: string, data?: U): Promise<T> {
-	return requestInstance({ ...config, url, method: 'POST', data: data });
-}
-
-export function put<T = any, U = any>(config: AxiosRequestConfig, url: string, parms?: U): Promise<T> {
-	return requestInstance({ ...config, url, method: 'PUT', params: parms });
-}
-
-export function del<T = any, U = any>(config: AxiosRequestConfig, url: string, data?: U): Promise<T> {
-	return requestInstance({ ...config, url, method: 'DELETE', data: data });
-}

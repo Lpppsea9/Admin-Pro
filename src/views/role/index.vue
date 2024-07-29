@@ -20,8 +20,6 @@
 <script setup lang="ts">
 import { getRoleList } from '@/api/role';
 import router from '@/router';
-import { ref, onMounted } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
 
 interface IRole {
 	roleId: number; // 角色Id

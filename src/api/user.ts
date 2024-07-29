@@ -1,4 +1,4 @@
-import { get, post } from '@/http/request';
+// import { get, post } from '@/http/request';
 import service from '@/http/request';
 
 export type LoginRequest = {
@@ -32,7 +32,7 @@ export function userLogin(data: LoginRequest) {
 	});
 }
 
-export function refreshUserInfo(data: LoginRequest) {
+export function refreshUserInfo(data: ReLoginRequest) {
 	return service({
 		url: '/getUserInfo',
 		method: 'POST',
@@ -41,5 +41,8 @@ export function refreshUserInfo(data: LoginRequest) {
 }
 
 export const getUserList = () => {
-	return get({}, '/getUserList');
+	return service({
+		url: '/getUserList',
+		method: 'GET'
+	});
 };

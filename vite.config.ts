@@ -38,11 +38,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			ElementPlus({}),
 			// 自动引入element-plus组件
 			AutoImport({
+				// 处理需要自动引入的框架
+				imports: ['vue', 'vue-router', 'pinia'],
 				// 处理eslint
 				eslintrc: {
-					enabled: true, // Default `false`
-					filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
-					globalsPropValue: true
+					enabled: true // Default `false`
+					// filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+					// globalsPropValue: true
 				},
 				resolvers: [
 					ElementPlusResolver(),
@@ -62,7 +64,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 						enabledCollections: ['ep']
 					})
 				],
-				dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url))
+				dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url)),
+				dirs: fileURLToPath(new URL('./src/components/auto', import.meta.url))
 			}),
 			// 自动安装图标
 			Icons({
